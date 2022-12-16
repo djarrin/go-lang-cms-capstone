@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-lang-cms-capstone/routeHandlers"
+	rh "go-lang-cms-capstone/routeHandlers"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -11,9 +11,13 @@ import (
 func main() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", routeHandlers.ServeIndex).Methods("GET")
+	router.HandleFunc("/", rh.ServeIndex).Methods("GET")
+	router.HandleFunc("/customers", rh.GetCustomers).Methods("GET")
+	router.HandleFunc("/customers/{id}", rh.GetCustomer).Methods("GET")
+	router.HandleFunc("/customers", rh.AddCustomer).Methods("POST")
+	router.HandleFunc("/customers/{id}", rh.UpdateCustomer).Methods("PUT")
+	router.HandleFunc("/customers/{id}", rh.DeleteCustomer).Methods("DELETE")
 
 	fmt.Println("Server is starting on port 3000...")
-	// Pass the customer router into ListenAndServe
 	http.ListenAndServe(":3000", router)
 }

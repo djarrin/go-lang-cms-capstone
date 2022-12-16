@@ -47,7 +47,7 @@ paths:
                   $ref: '#/components/schemas/Customer'
         '405':
           description: Invalid input
-  /customer/{id}:
+  /customers/{id}:
     get:
       tags:
         - customer
