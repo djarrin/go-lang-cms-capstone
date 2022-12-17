@@ -39,8 +39,8 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateCustomer'
       responses:
-        '200':
-          description: Successful operation
+        '201':
+          description: Successful Creation of Cusotmer
           content:
             application/json:
               schema:
