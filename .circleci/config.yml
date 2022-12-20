@@ -121,6 +121,11 @@ jobs:
           command: |
             cat /tmp/.circleci/ansible/inventory.txt
       - run:
+          name: Check project folder contents
+          command: |
+            cd ~/project/
+            ls
+      - run:
           name: Deploy backend
           command: |
             ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml

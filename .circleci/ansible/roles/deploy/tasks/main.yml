@@ -4,5 +4,6 @@
     dest: /home/ubuntu/
 
 - name: Start Server
+  become: yes
   shell: |
     cd /home/ubuntu/ && ./main
