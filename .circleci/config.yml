@@ -115,6 +115,10 @@ jobs:
           command: |
             apk add --update ansible
       - run:
+          name: Contents of inventory.txt
+          command: |
+            cat .circleci/ansible/inventory.txt
+      - run:
           name: Deploy backend
           command: |
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
