@@ -31,9 +31,14 @@ jobs:
       - image: cimg/go:1.19.4
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: "Build Code"
           command: "cd ~/project/ && go build main.go"
+      - save_cache:
+          paths: [/]
+          key: backend-build
   
   deploy-infrastructure:
     docker:
@@ -93,6 +98,23 @@ jobs:
           command: |
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
       - destroy-environment
+
+  deploy-code:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: [ "fa:9c:96:ae:ac:5c:93:46:66:ea:3f:2e:84:d9:35:21:4e:4a:89:c8" ]
+      - attach_workspace:
+          at: /tmp/.circleci/ansible
+      - restore_cache:
+          keys: [ backend-build ]
+      - run:
+          name: Deploy backend
+          command: |
+            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
+      - destroy-environment
           
 workflows:
   default:
@@ -102,3 +124,5 @@ workflows:
           requires: [build-code]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
+      - deploy-code:
+          requires: [configure-infrastructure]

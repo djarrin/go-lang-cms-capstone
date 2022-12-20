@@ -1,0 +1,9 @@
+- name: Copy Files Into Server
+  copy:
+    src: ~/project/main
+    dest: /home/ubuntu/
+
+- name: Start Server
+  shell: |
+    cd /home/ubuntu/
+    ./main
