@@ -114,7 +114,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            apt-get update -y
+            apt install ansible -y
       - run:
           name: Contents of inventory.txt
           command: |
@@ -122,7 +123,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
+            ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
       - destroy-environment
           
 workflows:
