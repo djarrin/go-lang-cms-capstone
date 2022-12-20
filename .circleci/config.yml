@@ -125,10 +125,17 @@ jobs:
           command: |
             cd ~/project/
             ls
+      - run: 
+          name: Run executable locally
+          command: |
+            cd ~/project/
+            chmod +x main
+            ./main
       - run:
           name: Deploy backend
           command: |
             ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
+      - destroy-environment
 
           
 workflows:
