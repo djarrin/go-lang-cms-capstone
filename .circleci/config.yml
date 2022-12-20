@@ -9,12 +9,12 @@ jobs:
     docker:
       - image: cimg/go:1.19.4
     steps:
-      - checkout
+      - checkout  
     - run:
-          name: build code
-          command: |
-            cd ~/project/
-            go build main.go
+        name: build-code
+        command: |
+          cd ~/project/
+          go build main.go
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
