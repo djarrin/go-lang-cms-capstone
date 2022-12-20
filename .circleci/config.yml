@@ -117,7 +117,7 @@ jobs:
       - run:
           name: Contents of inventory.txt
           command: |
-            cat .circleci/ansible/inventory.txt
+            cat /tmp/.circleci/ansible/inventory.txt
       - run:
           name: Deploy backend
           command: |
