@@ -111,6 +111,10 @@ jobs:
       - restore_cache:
           keys: [ backend-build ]
       - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
           name: Deploy backend
           command: |
             ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
@@ -126,4 +130,3 @@ workflows:
           requires: [deploy-infrastructure]
       - deploy-code:
           requires: [configure-infrastructure]
-          
