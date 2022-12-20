@@ -130,7 +130,7 @@ workflows:
       - build-code
       - deploy-infrastructure:
           requires: [build-code]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - deploy-code:
-          requires: [configure-infrastructure]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      - deploy-code
+          # requires: [configure-infrastructure]
