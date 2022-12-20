@@ -65,7 +65,7 @@ jobs:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
-            --query 'Reservations[*].Instances[*].PublicDnsName' \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters Name=tag:Name,Values=cms-backend-${CIRCLE_WORKFLOW_ID:0:7} \
             --output text >> .circleci/ansible/inventory.txt
       - run:
@@ -130,7 +130,7 @@ workflows:
       - build-code
       - deploy-infrastructure:
           requires: [build-code]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - deploy-code:
-          requires: [configure-infrastructure]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      # - deploy-code:
+      #     requires: [configure-infrastructure]
