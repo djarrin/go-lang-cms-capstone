@@ -133,4 +133,4 @@ workflows:
       # - configure-infrastructure:
       #     requires: [deploy-infrastructure]
       - deploy-code:
-          requires: [build-code]
+          requires: [deploy-infrastructure]
