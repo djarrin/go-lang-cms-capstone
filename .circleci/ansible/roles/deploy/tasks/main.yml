@@ -5,5 +5,4 @@
 
 - name: Start Server
   shell: |
-    cd /home/ubuntu/
-    ./main
+    cd /home/ubuntu/ && ./main
