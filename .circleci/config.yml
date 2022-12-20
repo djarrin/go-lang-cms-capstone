@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout  
       - run:
-        name: build-code
+        name: build-code-command
         command: |
           cd ~/project/
           go build main.go
