@@ -82,7 +82,7 @@ jobs:
   configure-infrastructure:
     docker:
       # Docker image here that supports Ansible
-      - image: python:3.7-alpine3.11
+      - image: python:3.9.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -101,7 +101,7 @@ jobs:
 
   deploy-code:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: python:3.9.16
     steps:
       - checkout
       - add_ssh_keys:
@@ -130,7 +130,7 @@ workflows:
       - build-code
       - deploy-infrastructure:
           requires: [build-code]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
-      - deploy-code:
+      - configure-infrastructure:
           requires: [deploy-infrastructure]
+      - deploy-code:
+          requires: [configure-infrastructure]
