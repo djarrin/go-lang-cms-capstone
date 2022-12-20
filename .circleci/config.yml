@@ -5,9 +5,8 @@ jobs:
     docker:
       - image: cimg/go:1.19.4
     steps:
-      - checkout  
       - run:
-        name: build-code-command
+        name: Build Code Command
         command: |
           cd ~/project/
           go build main.go
