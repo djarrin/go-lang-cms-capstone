@@ -2,6 +2,27 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+commands:
+  destroy-environment:
+    description: Destroy cloudformation stacks given a workflow ID.
+    steps:
+      - run:
+          name: Destroy environments
+          when: on_fail
+          command: |
+            if ! command -v aws &> /dev/null
+            then
+              if ! command -v curl &> /dev/null
+              then
+                apk --no-cache add curl
+              fi
+              alias python="python3"
+              curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+              unzip awscli-bundle.zip
+              ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+            fi
+            aws cloudformation delete-stack --stack-name golang-cms-${CIRCLE_WORKFLOW_ID:0:7}
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -12,9 +33,50 @@ jobs:
       - checkout
       - run:
           name: "Build Code"
-          command: " cd ~/project/ && go build main.go"
+          command: "cd ~/project/ && go build main.go"
+  
+  deploy-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Install tar
+          command: |
+            yum -y install tar
+      - run:
+          name: Install gzip
+          command: |
+            yum -y install gzip
+      - run:
+          name: Ensure back-end infrastructure exists
+          command: |
+            aws cloudformation deploy \
+              --template-file .circleci/files/cms-backend.yml \
+              --tags project=golang-cms \
+              --stack-name "golang-cms-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
+      - run:
+          name: Add back-end ip to ansible inventory
+          command: |
+            aws ec2 describe-instances \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --filters Name=tag:Name,Values=cms-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+            --output text >> .circleci/ansible/inventory.txt
+      - run:
+          name: Contents of inventory.txt
+          command: |
+            cat .circleci/ansible/inventory.txt
+      - persist_to_workspace:
+          root: .circleci/ansible
+          paths:
+            - inventory.txt
+      # Here's where you will add some code to rollback on failure
+      - destroy-environment
           
 workflows:
   default:
     jobs:
       - build-code
+      - deploy-infrastructure
+          requires: [build-code]
