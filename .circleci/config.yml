@@ -10,7 +10,7 @@ jobs:
       - image: cimg/go:1.19.4
     steps:
       - checkout  
-    - run:
+      - run:
         name: build-code
         command: |
           cd ~/project/
