@@ -79,4 +79,4 @@ workflows:
     jobs:
       - build-code
       - deploy-infrastructure
-          requires: [build-code]
+          requires: build-code
