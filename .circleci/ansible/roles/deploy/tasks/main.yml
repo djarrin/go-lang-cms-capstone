@@ -22,7 +22,6 @@
     . /etc/profile
 
 - name: Build Executable
-  become: yes
   shell: |
     cd /home/ubuntu/
     go build main.go 
