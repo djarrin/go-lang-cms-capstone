@@ -1,9 +1,27 @@
 - name: Copy Files Into Server
   copy:
-    src: ~/project/main
+    src: ~/project/
     dest: /home/ubuntu/
+
+- name: Download Go
+  become: yes
+  shell: |
+    cd /home/ubuntu/ 
+    wget https://storage.googleapis.com/golang/go1.13.9.linux-amd64.tar.gz
+    tar -C /usr/local -xzf go1.13.9.linux-amd64.tar.gz
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
+    echo 'export GOPATH=$HOME/gopath' >> /etc/profile
+    source /etc/profile
+
+- name: Build Executable
+  become: yes
+  shell: |
+    cd /home/ubuntu/
+    go build main.go 
 
 - name: Start Server
   become: yes
   shell: |
-    cd /home/ubuntu/ && ./main
+    cd /home/ubuntu/ && 
+    chmod +x main 
+    ./main
