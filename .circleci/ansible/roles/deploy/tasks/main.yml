@@ -20,7 +20,6 @@
   shell: |
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
     echo 'export GOPATH=$HOME/gopath' >> /etc/profile
-    source /etc/profile
 
 - name: Build Executable
   become: yes

@@ -11,15 +11,15 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: !Sub GoCMS-${ID}
-      GroupDescription: Allow port 22 and port 3030.
+      GroupDescription: Allow port 22 and port 3000.
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-          FromPort: 3030
-          ToPort: 3030
+          FromPort: 3000
+          ToPort: 3000
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
           FromPort: 9100
