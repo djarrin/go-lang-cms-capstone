@@ -10,6 +10,7 @@
     tar -C /usr/local -xzf go1.13.9.linux-amd64.tar.gz
 
 - name: Configure Go
+  become: yes
   shell: |
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
     echo 'export GOPATH=$HOME/gopath' >> /etc/profile
