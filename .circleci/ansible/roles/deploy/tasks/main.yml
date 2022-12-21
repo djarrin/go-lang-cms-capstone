@@ -3,11 +3,6 @@
     src: ~/project/
     dest: /home/ubuntu/
 
-- name: Check folder
-  shell: |
-    cd /home/ubuntu/
-    ls
-
 - name: Download Go
   become: yes
   shell: |
@@ -20,6 +15,11 @@
   shell: |
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
     echo 'export GOPATH=$HOME/gopath' >> /etc/profile
+    source /etc/profile
+
+- name: Source Go
+  become: yes
+  shell: |
     source /etc/profile
 
 - name: Build Executable
