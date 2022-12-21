@@ -26,6 +26,7 @@
     cd /home/ubuntu/ && 
     chmod +x main 
     nohup ./main
+    return 0
 
 - name: Check to see server is up
   ansible.builtin.wait_for:
