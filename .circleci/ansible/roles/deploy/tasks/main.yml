@@ -19,14 +19,13 @@
 - name: Source Go and build executable
   shell: |
     . /etc/profile
-    go build main.go 
+    go run main.go 
 
-- name: Start Server
-  shell: |
-    cd /home/ubuntu/ && 
-    chmod +x main 
-    nohup ./main
-    return 0
+# - name: Start Server
+#   shell: |
+#     cd /home/ubuntu/ && 
+#     chmod +x main 
+#     nohup ./main
 
 - name: Check to see server is up
   ansible.builtin.wait_for:
