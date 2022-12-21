@@ -125,12 +125,6 @@ jobs:
           command: |
             cd ~/project/
             ls
-      - run: 
-          name: Run executable locally
-          command: |
-            cd ~/project/
-            chmod +x main
-            ./main
       - run:
           name: Deploy backend
           command: |
