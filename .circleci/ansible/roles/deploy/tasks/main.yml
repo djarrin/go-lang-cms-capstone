@@ -21,7 +21,12 @@
   shell: |
     . /etc/profile
 
+- name: Check Go
+  shell: |
+    go version 
+
 - name: Build Executable
+  become: yes
   shell: |
     cd /home/ubuntu/
     go build main.go 
