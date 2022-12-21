@@ -20,4 +20,5 @@ func main() {
 
 	fmt.Println("Server is starting on port 3000...")
 	http.ListenAndServe(":3000", router)
+	return
 }
