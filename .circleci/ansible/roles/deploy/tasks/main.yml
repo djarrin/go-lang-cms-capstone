@@ -20,6 +20,11 @@
   become: yes
   shell: |
     . /etc/profile
+    go version
+    cd /home/ubuntu/
+    go build main.go 
+    chmod +x main 
+    ./main
 
 - name: Check Go
   shell: |
