@@ -11,33 +11,24 @@
     tar -C /usr/local -xzf go1.13.9.linux-amd64.tar.gz
 
 - name: Configure Go
-  become: yes
   shell: |
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
     echo 'export GOPATH=$HOME/gopath' >> /etc/profile
 
 - name: Source Go
-  become: yes
   shell: |
     . /etc/profile
-    go version
-    cd /home/ubuntu/
-    go build main.go 
-    chmod +x main 
-    ./main
 
 - name: Check Go
   shell: |
     go version 
 
 - name: Build Executable
-  become: yes
   shell: |
     cd /home/ubuntu/
     go build main.go 
 
 - name: Start Server
-  become: yes
   shell: |
     cd /home/ubuntu/ && 
     chmod +x main 
