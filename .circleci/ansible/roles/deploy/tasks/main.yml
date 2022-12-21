@@ -4,6 +4,7 @@
     dest: /home/ubuntu/
 
 - name: Download Go
+  become: yes
   shell: |
     cd /home/ubuntu/ 
     wget https://storage.googleapis.com/golang/go1.13.9.linux-amd64.tar.gz
