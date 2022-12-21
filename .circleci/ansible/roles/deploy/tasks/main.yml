@@ -19,7 +19,7 @@
 - name: Source Go
   become: yes
   shell: |
-    source /etc/profile
+    . /etc/profile
 
 - name: Build Executable
   become: yes
