@@ -16,18 +16,19 @@
     echo 'export PATH=$PATH:/usr/local/go/bin' >> /etc/profile
     echo 'export GOPATH=$HOME/gopath' >> /etc/profile
 
-- name: Source Go
+- name: Source Go and build executable
   shell: |
     . /etc/profile
-
-- name: Check Go
-  shell: |
-    go version 
-
-- name: Build Executable
-  shell: |
-    cd /home/ubuntu/
     go build main.go 
+
+# - name: Check Go
+#   shell: |
+#     go version 
+
+# - name: Build Executable
+#   shell: |
+#     cd /home/ubuntu/
+#     go build main.go 
 
 - name: Start Server
   shell: |
