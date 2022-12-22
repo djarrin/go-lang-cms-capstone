@@ -29,5 +29,5 @@
 
 - name: Check to see server is up
   ansible.builtin.wait_for:
-    port: 3001
-    delay: 10
+    port: 3000
+    delay: 1
