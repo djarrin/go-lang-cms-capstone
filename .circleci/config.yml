@@ -131,7 +131,7 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL: ${API_URL}
             echo "request URL: ${API_URL}"
-            if curl --max-time 5.5 "${API_URL}" | grep "ok"
+            if curl --connect-timeout 5 "${API_URL}" | grep "ok"
             then
                 echo "Smoke Test Passed"
                 return 0
