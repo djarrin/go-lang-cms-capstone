@@ -128,10 +128,10 @@ jobs:
               --filters Name=tag:Name,Values=cms-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --output text)
             echo "BACKEND_IP: {BACKEND_IP}""
-            export API_URL="http://${BACKEND_IP}:3000"
+            export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL: ${API_URL}
             echo "request URL: ${API_URL}"
-            if curl "${API_URL}" | grep "ok"
+            if curl --max-time 5.5 "${API_URL}" | grep "ok"
             then
                 echo "Smoke Test Passed"
                 return 0
