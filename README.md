@@ -6,4 +6,4 @@ There should be two ways to run this project
 1. clone this repo into your go folder and run `go run main.go` in the base directory
 2. clone this repo into your go folder and run `go build main.go` in the base directory then run `./main`
 
-Then you should be able to access the API's home page by going to localhost:3000
+Then you should be able to access the API's home page by going to localhost:3000, the home page will describe the endpoints and how to use them
