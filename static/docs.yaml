@@ -8,7 +8,7 @@ info:
     - [The github repository](https://github.com/djarrin/go-lang-cms-capstone)
   version: 1.0.11
 servers:
-  - url: testsurl
+  - url: check readme
 tags:
   - name: customer
     description: CRUD operations for customers
@@ -45,8 +45,8 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/Customer'
-        '405':
-          description: Invalid input
+        '422':
+          description: Unprocessable Entity
   /customers/{id}:
     get:
       tags:
@@ -69,6 +69,8 @@ paths:
                 $ref: '#/components/schemas/Customer'
         '404':
           description: Customer not found
+        '422':
+          description: Unprocessable Entity
     put:
       tags:
         - customer
@@ -96,8 +98,8 @@ paths:
                 $ref: '#/components/schemas/Customer'
         '404':
           description: Customer not found
-        '405':
-          description: Invalid input
+        '422':
+          description: Unprocessable Entity
     delete:
       tags:
         - customer
@@ -115,6 +117,8 @@ paths:
           description: Successful operation
         '404':
           description: Customer not found
+        '422':
+          description: Unprocessable Entity
 
 components:
   schemas:
@@ -131,8 +135,8 @@ components:
           type: string
           example: fakeemail@email.com
         phone:
-          type: string
-          example: 444-555-7891
+          type: number
+          example: 4445557891
         contacted:
           type: boolean
           example: true
@@ -155,8 +159,8 @@ components:
           type: string
           example: fakeemail@email.com
         phone:
-          type: string
-          example: 444-555-7891
+          type: number
+          example: 4445557891
         contacted:
           type: boolean
           example: true

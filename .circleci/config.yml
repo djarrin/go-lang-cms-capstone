@@ -139,7 +139,10 @@ jobs:
 workflows:
   default:
     jobs:
-      - deploy-infrastructure
+      - deploy-infrastructure:
+          filters:
+                branches:
+                  only: [circleci-project-setup]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - deploy-code:
