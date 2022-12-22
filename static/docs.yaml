@@ -8,7 +8,7 @@ info:
     - [The github repository](https://github.com/djarrin/go-lang-cms-capstone)
   version: 1.0.11
 servers:
-  - url: XXXXX
+  - url: testsurl
 tags:
   - name: customer
     description: CRUD operations for customers

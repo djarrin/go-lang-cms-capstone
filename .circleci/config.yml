@@ -26,20 +26,6 @@ commands:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build-code:
-    docker:
-      - image: cimg/go:1.19.4
-    steps:
-      - checkout
-      - restore_cache:
-          keys: [backend-build]
-      - run:
-          name: "Build Code"
-          command: "cd ~/project/ && go build main.go"
-      - save_cache:
-          paths: [/]
-          key: backend-build
-  
   deploy-infrastructure:
     docker:
       - image: amazon/aws-cli
@@ -109,8 +95,6 @@ jobs:
           fingerprints: [ "e1:74:49:8f:30:32:ae:f5:fc:a3:69:be:19:69:08:43" ]
       - attach_workspace:
           at: /tmp/.circleci/ansible
-      - restore_cache:
-          keys: [ backend-build ]
       - run:
           name: Install dependencies
           command: |
@@ -128,9 +112,7 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-code
-      - deploy-infrastructure:
-          requires: [build-code]
+      - deploy-infrastructure
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - deploy-code:
