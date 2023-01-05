@@ -86,6 +86,7 @@ jobs:
             ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i /tmp/.circleci/ansible/inventory.txt .circleci/ansible/configure-server.yml
       - destroy-environment
 
+
   deploy-code:
     docker:
       - image: python:3.9.16
